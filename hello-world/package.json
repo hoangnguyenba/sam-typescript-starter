@@ -6,7 +6,11 @@
   "repository": "https://github.com/awslabs/aws-sam-cli/tree/develop/samcli/local/init/templates/cookiecutter-aws-sam-hello-nodejs",
   "author": "SAM CLI",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "@middy/core": "^3.0.4",
+    "@middy/error-logger": "^3.0.4",
+    "@middy/input-output-logger": "^3.0.4"
+  },
   "type": "module",
   "scripts": {
     "unit": "jest",
@@ -16,7 +20,7 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.92",
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^28.1.1",
     "@types/node": "^17.0.13",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.10.2",
@@ -25,7 +29,7 @@
     "eslint": "^8.8.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^27.5.0",
+    "jest": "^28.1.0",
     "prettier": "^2.5.1",
     "ts-jest": "^28.0.4",
     "ts-node": "^10.4.0",

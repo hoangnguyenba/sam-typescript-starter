@@ -12,4 +12,8 @@ export default {
     coverageDirectory: 'coverage',
     coverageProvider: 'v8',
     testMatch: ['**/tests/unit/*.test.ts'],
+    moduleNameMapper: {
+        "@libs/(.*)": "<rootDir>/libs/$1"
+    },
+    extensionsToTreatAsEsm: ['.ts'],
 };

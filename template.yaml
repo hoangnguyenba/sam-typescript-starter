@@ -26,6 +26,8 @@ Resources:
             Path: /hello
             Method: get
     Metadata: # Manage esbuild properties
+      External:
+        - aws-sdk/clients/ssm.js
       BuildMethod: esbuild
       BuildProperties:
         Minify: true

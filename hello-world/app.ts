@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-
+import { middyfy } from '@libs/lambda';
 /**
  *
  * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
@@ -10,7 +10,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
  *
  */
 
-export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+const _lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     let response: APIGatewayProxyResult;
     try {
         response = {
@@ -31,3 +31,5 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
 
     return response;
 };
+
+export const lambdaHandler = middyfy(_lambdaHandler);

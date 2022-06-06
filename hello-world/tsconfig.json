@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.paths.json",
   "ts-node": {
     "moduleTypes": {
       "jest.config.ts": "cjs"
