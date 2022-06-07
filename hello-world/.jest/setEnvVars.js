@@ -1,0 +1,1 @@
+process.env.SSM_CONFIGS_PATH = '/sphtech/communication-templates/local/configs'

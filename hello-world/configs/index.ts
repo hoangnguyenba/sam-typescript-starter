@@ -1,18 +1,23 @@
-const configValues: any = {}
+type Config = {
+  [key: string]: boolean | number | string | undefined;
+};
+
+const configValues: Config = {}
 
 export const getConfigs = () => {
   return {
-    admindb: {
+    database: {
       region: process.env.DATA_API_REGION,
-      endpoint: process.env.DATA_API_ENDPOINT,
-      secretArn: process.env.DATA_API_SECRET_ARN,
-      resourceArn: process.env.DATA_API_RESOURCE_ARN,
-      name: process.env.DATA_API_DATABASE_NAME,
-      sslEnabled: process.env.DATA_API_SSL_ENABLE == 'true' && true,
-    }
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      database: process.env.DB_DATABASE,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+    },
   };
 }
 
-export const loadConfigs = (data: any) => {
+export const loadConfigs = (data: Config) => {
   Object.assign(configValues, data)
 }
+

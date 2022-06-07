@@ -2,6 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { lambdaHandler } from '../../app';
 
 describe('Unit test for app handler', function () {
+
     it('verifies successful response', async () => {
         const event: APIGatewayProxyEvent = {
             httpMethod: 'get',

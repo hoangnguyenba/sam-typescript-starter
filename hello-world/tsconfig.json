@@ -1,10 +1,5 @@
 {
   "extends": "./tsconfig.paths.json",
-  "ts-node": {
-    "moduleTypes": {
-      "jest.config.ts": "cjs"
-    }
-  },
   "compilerOptions": {
     "target": "es2022",
     "strict": true,

@@ -16,6 +16,11 @@ Resources:
     Properties:
       CodeUri: hello-world/
       Handler: app.lambdaHandler
+      Environment:
+         Variables:
+            NODE_ENV: 'dev'  
+            AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
+            SSM_CONFIGS_PATH: '/sphtech/communication-templates/local/configs'
       Runtime: nodejs16.x
       Architectures:
         - x86_64

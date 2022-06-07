@@ -13,7 +13,9 @@ export default {
     coverageProvider: 'v8',
     testMatch: ['**/tests/unit/*.test.ts'],
     moduleNameMapper: {
-        "@libs/(.*)": "<rootDir>/libs/$1"
+        "@libs/(.*)": "<rootDir>/libs/$1",
+        "@configs": "<rootDir>/configs"
     },
     extensionsToTreatAsEsm: ['.ts'],
+    setupFiles: ["<rootDir>/.jest/setEnvVars.js"]
 };
