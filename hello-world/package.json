@@ -10,7 +10,10 @@
     "@middy/core": "^3.0.4",
     "@middy/error-logger": "^3.0.4",
     "@middy/input-output-logger": "^3.0.4",
-    "@middy/ssm": "^3.0.4"
+    "@middy/ssm": "^3.0.4",
+    "handlebars": "^4.7.7",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.20.1"
   },
   "type": "module",
   "scripts": {

@@ -7,6 +7,8 @@ import {loadConfigs} from '@configs'
 
 import { Handler } from 'aws-lambda';
 
+import {init as initDB} from '@libs/database/rds'
+
 export const middyfy = (handler: Handler) => {
   return middy(handler)
     .use(ssm({
@@ -14,6 +16,13 @@ export const middyfy = (handler: Handler) => {
         configs: process.env.SSM_CONFIGS_PATH as string
       },
       cacheKey: 'ssm-configs'
+    }))
+    .use(initDB({
+      host: process.env.DB_HOST,
+      port: 33306,
+      database: 'admindb',
+      user: 'root',
+      password: 'example'
     }))
     .use(inputOutputLogger())
     .use(errorLogger())

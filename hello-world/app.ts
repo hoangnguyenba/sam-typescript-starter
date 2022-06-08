@@ -1,5 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { middyfy } from '@libs/lambda';
+import { connection } from '@libs/database/rds'
+import handlebars from 'handlebars'
 /**
  *
  * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
@@ -12,6 +14,16 @@ import { middyfy } from '@libs/lambda';
 
 const _lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     let response: APIGatewayProxyResult;
+    const [rows] = await connection.query(`SELECT code, message_body FROM communication_templates WHERE code = 'hoang-demo'`)
+    console.log(JSON.stringify(rows))
+    
+    // const jsonTemplate = JSON.parse(rows[0][1])
+
+    // const template = handlebars.compile(jsonTemplate.en)
+    // const html = template({
+    //     name: 'Hoang'
+    // });
+    // console.log(html)
     try {
         response = {
             statusCode: 200,
