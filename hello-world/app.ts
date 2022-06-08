@@ -1,47 +1,47 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { middyfy } from '@libs/lambda';
-import { connection } from '@libs/database/rds'
+import { getTemplateByCode } from '@domains/communication-template'
+
 import handlebars from 'handlebars'
+
+
+export type GenerateHTMLEventRequest = {
+  real_time: boolean,
+  template_code: string,
+  language?: string,
+  channel: string,
+  data: object
+}
+
+export type GenerateHTMLEventResponse = {
+  real_time: boolean,
+  channel: string,
+  storage_path: string
+}
+
 /**
  *
- * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
- * @param {Object} event - API Gateway Lambda Proxy Input Format
+ * @param {GenerateHTMLEventRequest} event
  *
- * Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
- * @returns {Object} object - API Gateway Lambda Proxy Output Format
+ * @returns {GenerateHTMLEventResponse}
  *
  */
-
-const _lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    let response: APIGatewayProxyResult;
-    const [rows] = await connection.query(`SELECT code, message_body FROM communication_templates WHERE code = 'hoang-demo'`)
-    console.log(JSON.stringify(rows))
+const _lambdaHandler = async (event: GenerateHTMLEventRequest): Promise<GenerateHTMLEventResponse> => {
     
-    // const jsonTemplate = JSON.parse(rows[0][1])
+    const template = await getTemplateByCode(event.template_code, event.language)
 
-    // const template = handlebars.compile(jsonTemplate.en)
-    // const html = template({
-    //     name: 'Hoang'
-    // });
-    // console.log(html)
-    try {
-        response = {
-            statusCode: 200,
-            body: JSON.stringify({
-                message: 'hello world',
-            }),
-        };
-    } catch (err) {
-        console.log(err);
-        response = {
-            statusCode: 500,
-            body: JSON.stringify({
-                message: 'some error happened',
-            }),
-        };
+    if (!template) {
+      throw Error('Invalid template')
     }
 
-    return response;
+    const html = handlebars.compile(template)(event.data)
+
+    // upload to s3
+
+    return {
+      real_time: event.real_time,
+      channel: event.channel,
+      storage_path: html
+  };
 };
 
 export const lambdaHandler = middyfy(_lambdaHandler);

@@ -17,17 +17,11 @@ export const middyfy = (handler: Handler) => {
       },
       cacheKey: 'ssm-configs'
     }))
-    .use(initDB({
-      host: process.env.DB_HOST,
-      port: 33306,
-      database: 'admindb',
-      user: 'root',
-      password: 'example'
-    }))
     .use(inputOutputLogger())
     .use(errorLogger())
     .before(async (request) => {
       const data = await getInternal(['configs'], request)
       loadConfigs(data.configs)
     })
+    .use(initDB())
 }

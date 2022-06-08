@@ -1,0 +1,19 @@
+{
+  "real_time":true,
+  "template_code":"hoang-demo",
+  "data_transform":"invoice",
+  "variant":"full payment",
+  "channel":"Print,SMS",
+  "data":{
+     "contact":{
+        "account_no":"A13123123",
+        "email_address":"test@test.com",
+        "mobile_number":"85228888",
+        "billing_address":{}
+     },
+     "order":{
+        "order_items":[
+        ]
+     }
+  }
+}

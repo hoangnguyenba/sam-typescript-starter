@@ -19,15 +19,25 @@ const defaults: DBConfig = {
 }
 
 
-export const init = (opts: DBConfig): middy.MiddlewareObj<APIGatewayProxyEvent, APIGatewayProxyResult> => {
+export const init = (opts?: DBConfig): middy.MiddlewareObj<APIGatewayProxyEvent, APIGatewayProxyResult> => {
 
   const options = { ...defaults, ...opts }
 
   const before: middy.MiddlewareFn<APIGatewayProxyEvent, APIGatewayProxyResult> = async (
     request
   ): Promise<void> => {
+
+    const configs = await request.internal.configs
+
     // Your middleware logic
-    connection = await mysql.createConnection(options);
+    connection = await mysql.createConnection({
+      ...options,
+      host     : configs.DB_HOST,
+      port     : configs.DB_PORT,
+      user     : configs.DB_USERNAME,
+      password : configs.DB_PASSWORD,
+      database : configs.DB_DATABASE
+    });
   }
 
   const after: middy.MiddlewareFn<APIGatewayProxyEvent, APIGatewayProxyResult> = async (
