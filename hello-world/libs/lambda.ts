@@ -8,6 +8,7 @@ import {loadConfigs} from '@configs'
 import { Handler } from 'aws-lambda';
 
 import {init as initDB} from '@libs/database/rds'
+import {init as initCache} from '@services/cache'
 
 export const middyfy = (handler: Handler) => {
   return middy(handler)
@@ -24,4 +25,5 @@ export const middyfy = (handler: Handler) => {
       loadConfigs(data.configs)
     })
     .use(initDB())
+    .use(initCache())
 }

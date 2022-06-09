@@ -4,6 +4,7 @@
     "paths": {
       "@libs/*": ["libs/*"],
       "@domains/*": ["domains/*"],
+      "@services/*": ["services/*"],
       "@configs": ["configs"]
     }
   }

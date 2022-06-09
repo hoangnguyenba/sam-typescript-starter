@@ -15,6 +15,7 @@ export default {
     moduleNameMapper: {
         "@libs/(.*)": "<rootDir>/libs/$1",
         "@domains/(.*)": "<rootDir>/domains/$1",
+        "@services/(.*)": "<rootDir>/services/$1",
         "@configs": "<rootDir>/configs"
     },
     extensionsToTreatAsEsm: ['.ts'],
